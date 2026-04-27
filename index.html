@@ -1,4 +1,664 @@
 <!DOCTYPE HTML>
+<html>
+<head>
+	<title>Van Pixelen | Web Development</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="/style.css" />
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+	<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	<style>
+		:root {
+			--accent: #2563eb;
+			--accent-light: #3b82f6;
+			--dark: #0a0e1a;
+			--mid: #111827;
+			--light-text: #94a3b8;
+			--white: #f8fafc;
+		}
+
+		* { box-sizing: border-box; }
+
+		body {
+			font-family: 'DM Sans', sans-serif;
+			background: var(--dark);
+			color: var(--white);
+		}
+
+		h1, h2, h3, h4 {
+			font-family: 'Syne', sans-serif;
+		}
+
+		/* ── HEADER ── */
+		#header {
+			background: linear-gradient(160deg, #0a0e1a 60%, #0f1e3d 100%);
+			padding: 6rem 2rem 5rem;
+			text-align: center;
+			position: relative;
+			overflow: hidden;
+		}
+
+		#header::before {
+			content: '';
+			position: absolute;
+			inset: 0;
+			background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(37,99,235,0.18) 0%, transparent 70%);
+			pointer-events: none;
+		}
+
+		.nav-bar {
+			position: absolute;
+			top: 0; left: 0; right: 0;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 1.4rem 3rem;
+			border-bottom: 1px solid rgba(255,255,255,0.06);
+			background: rgba(10,14,26,0.8);
+			backdrop-filter: blur(10px);
+			z-index: 10;
+		}
+
+		.nav-logo {
+			font-family: 'Syne', sans-serif;
+			font-weight: 800;
+			font-size: 1.1rem;
+			letter-spacing: 0.02em;
+			color: var(--white);
+			text-decoration: none;
+		}
+
+		.nav-logo span { color: var(--accent-light); }
+
+		.nav-links {
+			display: flex;
+			gap: 2rem;
+			list-style: none;
+			margin: 0; padding: 0;
+		}
+
+		.nav-links a {
+			color: var(--light-text);
+			text-decoration: none;
+			font-size: 0.9rem;
+			font-weight: 500;
+			transition: color 0.2s;
+		}
+
+		.nav-links a:hover { color: var(--white); }
+
+		.hero-badge {
+			display: inline-block;
+			background: rgba(37,99,235,0.15);
+			border: 1px solid rgba(59,130,246,0.35);
+			color: var(--accent-light);
+			font-size: 0.75rem;
+			font-weight: 600;
+			letter-spacing: 0.12em;
+			text-transform: uppercase;
+			padding: 0.4rem 1rem;
+			border-radius: 100px;
+			margin-bottom: 1.8rem;
+		}
+
+		#header .inner {
+			position: relative;
+			z-index: 2;
+			max-width: 760px;
+			margin: 0 auto;
+			padding-top: 5rem;
+		}
+
+		#header h1 {
+			font-family: 'Syne', sans-serif;
+			font-size: clamp(2.4rem, 5vw, 4rem);
+			font-weight: 800;
+			line-height: 1.1;
+			margin-bottom: 1.2rem;
+			color: var(--white);
+		}
+
+		#header h1 span { color: var(--accent-light); }
+
+		#header p {
+			font-size: 1.1rem;
+			color: var(--light-text);
+			max-width: 520px;
+			margin: 0 auto 2.4rem;
+			line-height: 1.7;
+		}
+
+		.btn-primary {
+			display: inline-block;
+			background: var(--accent);
+			color: #fff !important;
+			font-family: 'DM Sans', sans-serif;
+			font-weight: 600;
+			font-size: 0.9rem;
+			letter-spacing: 0.03em;
+			padding: 0.8rem 2rem;
+			border-radius: 6px;
+			text-decoration: none;
+			transition: background 0.2s, transform 0.15s;
+			border: none;
+			cursor: pointer;
+		}
+
+		.btn-primary:hover {
+			background: var(--accent-light);
+			transform: translateY(-1px);
+		}
+
+		.btn-outline {
+			display: inline-block;
+			background: transparent;
+			color: var(--white) !important;
+			font-family: 'DM Sans', sans-serif;
+			font-weight: 600;
+			font-size: 0.9rem;
+			padding: 0.8rem 2rem;
+			border-radius: 6px;
+			text-decoration: none;
+			border: 1px solid rgba(255,255,255,0.2);
+			transition: border-color 0.2s, transform 0.15s;
+			margin-left: 0.8rem;
+		}
+
+		.btn-outline:hover {
+			border-color: rgba(255,255,255,0.5);
+			transform: translateY(-1px);
+		}
+
+		/* ── SECTION ONE — ABOUT ── */
+		#one {
+			background: var(--mid);
+			padding: 5rem 2rem;
+		}
+
+		#one .container {
+			max-width: 1100px;
+			margin: 0 auto;
+		}
+
+		#one .row {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 4rem;
+			align-items: center;
+		}
+
+		@media (max-width: 768px) {
+			#one .row { grid-template-columns: 1fr; }
+			.nav-links { display: none; }
+		}
+
+		.section-tag {
+			display: inline-block;
+			color: var(--accent-light);
+			font-size: 0.75rem;
+			font-weight: 600;
+			letter-spacing: 0.12em;
+			text-transform: uppercase;
+			margin-bottom: 1rem;
+		}
+
+		#one h2 {
+			font-size: clamp(1.6rem, 3vw, 2.2rem);
+			font-weight: 700;
+			line-height: 1.25;
+			margin-bottom: 1.2rem;
+			color: var(--white);
+		}
+
+		#one p {
+			color: var(--light-text);
+			line-height: 1.8;
+			margin-bottom: 1rem;
+			font-size: 0.95rem;
+		}
+
+		.about-img-wrap {
+			border-radius: 12px;
+			overflow: hidden;
+			border: 1px solid rgba(255,255,255,0.07);
+			position: relative;
+		}
+
+		.about-img-wrap img {
+			width: 100%;
+			display: block;
+			filter: brightness(0.85) saturate(0.9);
+		}
+
+		.about-img-wrap::after {
+			content: '';
+			position: absolute;
+			inset: 0;
+			background: linear-gradient(135deg, rgba(37,99,235,0.12) 0%, transparent 60%);
+		}
+
+		/* ── SECTION TWO — SERVICES ── */
+		#two {
+			background: var(--dark);
+			padding: 5rem 2rem;
+		}
+
+		#two .container {
+			max-width: 1100px;
+			margin: 0 auto;
+		}
+
+		.section-header {
+			text-align: center;
+			margin-bottom: 3.5rem;
+		}
+
+		.section-header h2 {
+			font-size: clamp(1.8rem, 3vw, 2.4rem);
+			font-weight: 800;
+			color: var(--white);
+			margin-bottom: 0.8rem;
+		}
+
+		.section-header p {
+			color: var(--light-text);
+			max-width: 500px;
+			margin: 0 auto;
+			font-size: 0.95rem;
+			line-height: 1.7;
+		}
+
+		.services-grid {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 1.5rem;
+		}
+
+		@media (max-width: 900px) {
+			.services-grid { grid-template-columns: repeat(2, 1fr); }
+		}
+		@media (max-width: 560px) {
+			.services-grid { grid-template-columns: 1fr; }
+		}
+
+		.service-card {
+			background: var(--mid);
+			border: 1px solid rgba(255,255,255,0.07);
+			border-radius: 12px;
+			padding: 2rem;
+			transition: border-color 0.25s, transform 0.2s;
+		}
+
+		.service-card:hover {
+			border-color: rgba(59,130,246,0.4);
+			transform: translateY(-3px);
+		}
+
+		.service-icon {
+			width: 44px;
+			height: 44px;
+			background: rgba(37,99,235,0.15);
+			border-radius: 10px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin-bottom: 1.2rem;
+			font-size: 1.1rem;
+			color: var(--accent-light);
+		}
+
+		.service-card h3 {
+			font-size: 1rem;
+			font-weight: 700;
+			color: var(--white);
+			margin-bottom: 0.6rem;
+		}
+
+		.service-card p {
+			font-size: 0.85rem;
+			color: var(--light-text);
+			line-height: 1.7;
+		}
+
+		/* ── SECTION THREE — PROJECTS ── */
+		#three {
+			background: var(--mid);
+			padding: 5rem 2rem;
+		}
+
+		#three .container {
+			max-width: 1100px;
+			margin: 0 auto;
+		}
+
+		.projects-grid {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 1.5rem;
+		}
+
+		@media (max-width: 900px) {
+			.projects-grid { grid-template-columns: repeat(2, 1fr); }
+		}
+		@media (max-width: 560px) {
+			.projects-grid { grid-template-columns: 1fr; }
+		}
+
+		.project-card {
+			background: var(--dark);
+			border: 1px solid rgba(255,255,255,0.07);
+			border-radius: 12px;
+			overflow: hidden;
+			transition: border-color 0.25s, transform 0.2s;
+		}
+
+		.project-card:hover {
+			border-color: rgba(59,130,246,0.4);
+			transform: translateY(-3px);
+		}
+
+		.project-card img {
+			width: 100%;
+			display: block;
+			aspect-ratio: 16/9;
+			object-fit: cover;
+			filter: brightness(0.8) saturate(0.85);
+		}
+
+		.project-card-body {
+			padding: 1.4rem;
+		}
+
+		.project-tag {
+			font-size: 0.7rem;
+			font-weight: 600;
+			letter-spacing: 0.1em;
+			text-transform: uppercase;
+			color: var(--accent-light);
+			margin-bottom: 0.5rem;
+		}
+
+		.project-card h3 {
+			font-size: 1rem;
+			font-weight: 700;
+			color: var(--white);
+			margin-bottom: 0.5rem;
+		}
+
+		.project-card p {
+			font-size: 0.82rem;
+			color: var(--light-text);
+			line-height: 1.65;
+			margin-bottom: 1rem;
+		}
+
+		.project-card a {
+			font-size: 0.82rem;
+			font-weight: 600;
+			color: var(--accent-light);
+			text-decoration: none;
+			border-bottom: 1px solid rgba(59,130,246,0.3);
+			padding-bottom: 1px;
+			transition: color 0.2s, border-color 0.2s;
+		}
+
+		.project-card a:hover {
+			color: var(--white);
+			border-color: var(--white);
+		}
+
+		/* ── SECTION FOUR — CTA ── */
+		#four {
+			background: var(--dark);
+			padding: 5rem 2rem;
+			text-align: center;
+			position: relative;
+			overflow: hidden;
+		}
+
+		#four::before {
+			content: '';
+			position: absolute;
+			inset: 0;
+			background: radial-gradient(ellipse 70% 80% at 50% 100%, rgba(37,99,235,0.14) 0%, transparent 70%);
+			pointer-events: none;
+		}
+
+		#four .container {
+			max-width: 640px;
+			margin: 0 auto;
+			position: relative;
+			z-index: 2;
+		}
+
+		#four h2 {
+			font-size: clamp(1.8rem, 4vw, 2.8rem);
+			font-weight: 800;
+			color: var(--white);
+			margin-bottom: 1rem;
+			line-height: 1.2;
+		}
+
+		#four p {
+			color: var(--light-text);
+			font-size: 1rem;
+			line-height: 1.7;
+			margin-bottom: 2rem;
+		}
+
+		.contact-detail {
+			margin-top: 2rem;
+			font-size: 0.85rem;
+			color: var(--light-text);
+		}
+
+		.contact-detail strong {
+			color: var(--white);
+		}
+
+		/* ── FOOTER ── */
+		#footer {
+			background: #06090f;
+			border-top: 1px solid rgba(255,255,255,0.06);
+			padding: 2rem;
+			text-align: center;
+		}
+
+		#footer .copyright {
+			list-style: none;
+			margin: 0; padding: 0;
+			display: flex;
+			gap: 1.5rem;
+			justify-content: center;
+			flex-wrap: wrap;
+		}
+
+		#footer .copyright li {
+			font-size: 0.8rem;
+			color: #4b5563;
+		}
+
+		#footer .copyright li a {
+			color: #6b7280;
+			text-decoration: none;
+		}
+
+		#footer .copyright li a:hover { color: var(--light-text); }
+
+		/* ── DIVIDER ── */
+		.divider {
+			height: 1px;
+			background: linear-gradient(90deg, transparent, rgba(59,130,246,0.3), transparent);
+			margin: 0;
+		}
+	</style>
+</head>
+<body class="is-preload">
+
+	<!-- Header -->
+	<section id="header">
+		<nav class="nav-bar">
+			<a href="#" class="nav-logo">Van <span>Pixelen</span></a>
+			<ul class="nav-links">
+				<li><a href="#one">About</a></li>
+				<li><a href="#two">Services</a></li>
+				<li><a href="#three">Projects</a></li>
+				<li><a href="#four">Contact</a></li>
+			</ul>
+		</nav>
+		<div class="inner">
+			<div class="hero-badge">🖥 In-City Web Development Studio</div>
+			<h1>We build websites that <span>perform</span>, not just impress.</h1>
+			<p>Van Pixelen is your go-to web development studio for fast, clean, and professional digital presences. Whether you're a local business, dealership, or brand — we make you look the part.</p>
+			<a href="#three" class="btn-primary">View Our Work</a>
+			<a href="#four" class="btn-outline">Get in Touch</a>
+		</div>
+	</section>
+
+	<div class="divider"></div>
+
+	<!-- One — About -->
+	<section id="one">
+		<div class="container">
+			<div class="row">
+				<div>
+					<span class="section-tag">About Us</span>
+					<h2>A studio built for businesses that want results.</h2>
+					<p>Van Pixelen Web Development is a modern digital studio focused on building high-performance websites for businesses in the city. We blend sharp design with efficient code — no bloat, no unnecessary complexity, just clean work that converts.</p>
+					<p>Every project we take on is built with clarity and purpose. Fast load times, smooth user experiences, and a professional finish that gives your business the credibility it deserves. We treat every client's site like it's our own.</p>
+					<p>From car dealerships and mechanic shops to nightclubs and law firms — if you need an online presence that works as hard as you do, Van Pixelen delivers.</p>
+					<br>
+					<a href="#four" class="btn-primary">Work With Us</a>
+				</div>
+				<div class="about-img-wrap">
+					<img src="images/pic01.jpg" alt="Van Pixelen studio" />
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<div class="divider"></div>
+
+	<!-- Two — Services -->
+	<section id="two">
+		<div class="container">
+			<div class="section-header">
+				<span class="section-tag">What We Offer</span>
+				<h2>Everything your business needs online.</h2>
+				<p>We keep things lean by design. Every service we deliver is built with performance, clarity, and your business goals in mind.</p>
+			</div>
+			<div class="services-grid">
+				<div class="service-card">
+					<div class="service-icon">⚡</div>
+					<h3>Custom Website Development</h3>
+					<p>Fast, responsive, and built to scale. We code everything clean — no page builders, no shortcuts.</p>
+				</div>
+				<div class="service-card">
+					<div class="service-icon">🎨</div>
+					<h3>UI/UX Design</h3>
+					<p>Clean, user-focused interfaces that guide visitors to take action. Good design isn't decoration — it's strategy.</p>
+				</div>
+				<div class="service-card">
+					<div class="service-icon">🛒</div>
+					<h3>E-commerce Solutions</h3>
+					<p>Shopify, WooCommerce, or fully custom builds. We set up your store to sell — not just sit there.</p>
+				</div>
+				<div class="service-card">
+					<div class="service-icon">📈</div>
+					<h3>Performance Optimization</h3>
+					<p>Speed improvements, SEO, and Core Web Vitals tuning. A fast site keeps visitors — a slow one loses them.</p>
+				</div>
+				<div class="service-card">
+					<div class="service-icon">🖥</div>
+					<h3>Web App Development</h3>
+					<p>Dashboards, internal tools, and SaaS platforms. We build software that actually works for your workflow.</p>
+				</div>
+				<div class="service-card">
+					<div class="service-icon">🔧</div>
+					<h3>Maintenance & Support</h3>
+					<p>Ongoing care so your site stays sharp, secure, and up to date. We don't disappear after launch.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<div class="divider"></div>
+
+	<!-- Three — Projects -->
+	<section id="three">
+		<div class="container">
+			<div class="section-header">
+				<span class="section-tag">Our Work</span>
+				<h2>Recent Projects</h2>
+				<p>A look at what we've built. Real businesses, real results.</p>
+			</div>
+			<div class="projects-grid">
+				<div class="project-card">
+					<img src="images/pic02.jpg" alt="Project 1" />
+					<div class="project-card-body">
+						<div class="project-tag">E-commerce</div>
+						<h3>Retail Storefront</h3>
+						<p>A custom WooCommerce build for a local fashion brand — mobile-first design, fast checkout, and a clean product catalogue.</p>
+						<a href="#">View Project →</a>
+					</div>
+				</div>
+				<div class="project-card">
+					<img src="images/pic03.jpg" alt="Project 2" />
+					<div class="project-card-body">
+						<div class="project-tag">Business Site</div>
+						<h3>Auto Dealership</h3>
+						<p>A sharp, high-converting landing page for a city car dealership — fast, SEO-ready, and built to bring in leads.</p>
+						<a href="#">View Project →</a>
+					</div>
+				</div>
+				<div class="project-card">
+					<img src="images/pic04.jpg" alt="Project 3" />
+					<div class="project-card-body">
+						<div class="project-tag">Web App</div>
+						<h3>Business Dashboard</h3>
+						<p>An internal management dashboard for a growing city business — clean UI, real-time data, role-based access.</p>
+						<a href="#">View Project →</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<div class="divider"></div>
+
+	<!-- Four — CTA / Contact -->
+	<section id="four">
+		<div class="container">
+			<span class="section-tag">Get Started</span>
+			<h2>Ready to build something great?</h2>
+			<p>Whether you're a startup finding your footing or an established business ready for a digital upgrade — we'll build you something fast, functional, and tailored to your goals. No agency bloat, no unnecessary complexity.</p>
+			<a href="#" class="btn-primary">Contact Van Pixelen</a>
+			<div class="contact-detail">
+				<p>Reach us in-city or find us on <strong>[your platform/Discord]</strong>. We respond fast.</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- Footer -->
+	<section id="footer">
+		<ul class="copyright">
+			<li>&copy; Van Pixelen Web Development</li>
+			<li>Crafting fast, elegant digital experiences.</li>
+			<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+		</ul>
+	</section>
+
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/jquery.scrolly.min.js"></script>
+	<script src="assets/js/browser.min.js"></script>
+	<script src="assets/js/breakpoints.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script>
+
+</body>
+</html>
+<!DOCTYPE HTML>
 <!--
 	Photon by HTML5 UP
 	html5up.net | @ajlkn
